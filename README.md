@@ -38,6 +38,22 @@ In order to run Digibyte nodes you must first install the digibyte_subsidy & lit
     cd ..
     cd litecoin_scrypt
     sudo python setup.py install
+	
+digibyte.conf
+	server=1
+	rpcuser=user
+	rpcpassword=anything long
+	algo=scrypt
+	listenonion=0
+	listen=1
+	daemon=1
+	gen=0
+	onlynet=IPv4
+	rpcworkqueue=32
+	rpcthreads=96
+	rpcallowip=127.0.0.1
+	rpcport=14024
+	port=12026
 
 Running P2Pool:
 -------------------------
