@@ -44,6 +44,6 @@ def _get_version():
         traceback.print_exc()
         return 'unknown %s' % (str(e).encode('hex'),)
 
-__version__ = 0.03.01
+__version__ = _get_version()
 
 DEBUG = True
