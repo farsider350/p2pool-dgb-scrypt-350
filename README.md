@@ -1,3 +1,5 @@
+Sharechain 3.5.0 
+
 Requirements:
 -------------------------
 Generic:
@@ -69,5 +71,5 @@ python run_p2pool.py --help
 
 Donations towards further development:
 -------------------------
-BTC: 
-DGB: 
+BTC: 12nQSWig35Wue2AGjiGM5F2LUvSwq8uQqS
+DGB: DG21rdLGRR2sMZDA1pXCrR93dKwjSz8yHo
