@@ -1,6 +1,6 @@
 from p2pool.bitcoin import networks
 
-PARENT=networks.nets['digibyte']
+PARENT=networks.nets['digibytezen']
 SHARE_PERIOD = 20
 CHAIN_LENGTH = 1*24*60
 REAL_CHAIN_LENGTH = 1*24*60
@@ -11,15 +11,15 @@ PREFIX = '2358B404B4781CD0'.decode('hex')
 P2P_PORT = 5024
 MIN_TARGET = 0
 MAX_TARGET = 2**256//2**20 - 1
-PERSIST = False
+PERSIST = True
 WORKER_PORT = 5055
-BOOTSTRAP_ADDRS = ''.split(' ')
+BOOTSTRAP_ADDRS = 'triplezen.tk'.split(' ')
 ANNOUNCE_CHANNEL = '#triplezen'
 VERSION_CHECK = lambda v: None if 6160200 <= v else 'DigiByte version too old. Upgrade to 6.16.2 or newer!'
 VERSION_WARNING = lambda v: None
 SOFTFORKS_REQUIRED = set(['nversionbips', 'csv', 'segwit'])
-MINIMUM_PROTOCOL_VERSION = 3301
-NEW_MINIMUM_PROTOCOL_VERSION = 3301
+MINIMUM_PROTOCOL_VERSION = 1600
+NEW_MINIMUM_PROTOCOL_VERSION = 1700
 SEGWIT_ACTIVATION_VERSION = 17
 BLOCK_MAX_SIZE = 1000000
 BLOCK_MAX_WEIGHT = 4000000
