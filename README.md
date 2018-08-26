@@ -33,7 +33,7 @@ sudo pypy setup.py install
 cd ..
 sudo rm -r Twisted-15.4.0*
 
-git clone https://github.com/farsider350/p2pool-dgb-scrypt-350
+git clone https://github.com/farsider350/p2pool-dgb-scrypt-350.git
 cd digibyte_subsidy
 sudo pypy setup.py install
 cd ..
@@ -63,11 +63,7 @@ To use P2Pool, you must be running your own local myriadcoind. For standard conf
 
     pypy run_p2pool.py --net digibyte
 
-To join the TripleZen Sharechain:
-
-    pypy run_p2pool.py --net digibytezen
-
-To make your node accessible from the internet, open the following ports on your router (both the worker port and peer-2-peer port please!): Worker Port = 5025; Peer-2-Peer Port = 5024
+To make your node accessible from the internet, open the following ports on your router (both the worker port and peer-2-peer port please!): Worker Port = 5055; Peer-2-Peer Port = 5024
 
 Run for additional options:
 
