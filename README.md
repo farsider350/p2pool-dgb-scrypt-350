@@ -37,6 +37,7 @@ cd ..
 sudo rm -r Twisted-15.4.0*
 
 git clone https://github.com/farsider350/p2pool-dgb-scrypt-350.git
+cd p2pool-dgb-scrypt-350
 cd digibyte_subsidy
 sudo pypy setup.py install
 cd ..
