@@ -1,3 +1,6 @@
+Please read this file in raw format for best install results:
+https://raw.githubusercontent.com/farsider350/p2pool-dgb-scrypt-350/master/README.md
+
 P2pool installation with pypy -- Windows
 --------------------------------------
 On Windows, pypy is only supported via the Windows Subsystem for Linux (WSL). P2pool on pypy on WSL is much faster than P2pool on
