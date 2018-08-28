@@ -67,9 +67,6 @@ To use P2Pool, you must be running your own local myriadcoind. For standard conf
 	For Ilsawa's Server
 	pypy run_p2pool.py --net digibyteils
 	
-	For Brutangs Server
-	pypy run_p2pool.py --net digibytebru
-	
 To make your node accessible from the internet, open the following ports on your router (both the worker port and peer-2-peer port please!): Worker Port = 5055; Peer-2-Peer Port = 5024
 
 Run for additional options:
