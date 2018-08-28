@@ -56,6 +56,7 @@ digibyte.conf
 	rpcallowip=127.0.0.1
 	rpcport=14024
 	port=12026
+	deprecatedrpc=accounts
 
 Running P2Pool:
 -------------------------
