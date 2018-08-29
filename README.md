@@ -66,10 +66,10 @@ Running P2Pool:
 -------------------------
 To use P2Pool, you must be running your own local myriadcoind. For standard configurations, using P2Pool should be as simple as:
 
-	For our Server
+	For Zen Server
     pypy run_p2pool.py --net digibyte
     
-    For Brus Server
+    For Bru's Server
     pypy run_p2pool.py --net digibytebru
 
 	For Ilsawa's Server
