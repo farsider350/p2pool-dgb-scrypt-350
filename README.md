@@ -70,7 +70,7 @@ To use P2Pool, you must be running your own local myriadcoind. For standard conf
     pypy run_p2pool.py --net digibyte
     
     For Brus Server
-    pypy run_p2pool.py --net digibutebru
+    pypy run_p2pool.py --net digibytebru
 
 	For Ilsawa's Server
 	pypy run_p2pool.py --net digibyteils
