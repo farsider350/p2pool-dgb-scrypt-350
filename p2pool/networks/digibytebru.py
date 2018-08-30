@@ -15,7 +15,7 @@ PERSIST = True
 WORKER_PORT = 5055
 BOOTSTRAP_ADDRS = 'dgbsolo.brutang.work pocketburgers.ddnsfree.com 204.93.127.197 triplezen.tk'.split(' ')
 ANNOUNCE_CHANNEL = '#p2pool'
-VERSION_CHECK = lambda v: None if 6160200 <= v else 'DigiByte version too old. Upgrade to 6.16.2 or newer!'
+VERSION_CHECK = lambda v: None if 6160400 <= v else 'DigiByte version too old. Upgrade to 6.16.4 or newer!'
 VERSION_WARNING = lambda v: None
 SOFTFORKS_REQUIRED = set(['nversionbips', 'csv', 'segwit'])
 MINIMUM_PROTOCOL_VERSION = 1600
