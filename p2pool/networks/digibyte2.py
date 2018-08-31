@@ -12,7 +12,7 @@ P2P_PORT = 5024
 MIN_TARGET = 0
 MAX_TARGET = 2**256//2**20 - 1
 PERSIST = True
-WORKER_PORT = 5055
+WORKER_PORT = 5025
 BOOTSTRAP_ADDRS = 'dgbsolo.brutang.work pocketburgers.ddnsfree.com 204.93.127.197 triplezen.tk'.split(' ')
 ANNOUNCE_CHANNEL = '#p2pool'
 VERSION_CHECK = lambda v: None if 6160400 <= v else 'DigiByte version too old. Upgrade to 6.16.4 or newer!'
