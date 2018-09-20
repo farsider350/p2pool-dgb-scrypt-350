@@ -78,6 +78,8 @@ Run for additional options:
 
 pypy run_p2pool.py --help
 
+https://triplezen.tk
+
 Donations towards further development:
 -------------------------
 BTC: 12nQSWig35Wue2AGjiGM5F2LUvSwq8uQqS
