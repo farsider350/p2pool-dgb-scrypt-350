@@ -9,11 +9,12 @@ Once you've done that, run bash and follow the rest of the steps below.
 
 P2pool installation with pypy -- Linux and Windows
 -------------------------------------------------
-Copy and paste the following commands one line at a time into a bash shell in order to install p2pool on Windows or Linux.
+Copy and paste the following commands one paragraph at a time into a bash shell in order to install p2pool on Windows or Linux.
 
 
 
 		sudo apt-get update
+		
 		sudo apt-get install pypy pypy-dev pypy-setuptools gcc build-essential git
 
 		wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo pypy
