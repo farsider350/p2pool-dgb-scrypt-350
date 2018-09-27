@@ -1,5 +1,5 @@
-For easy P2pool install and auto setup of Core wallet config files including merged coins. Double click to run p2pool feature and custom web UI
---------------------------------------
+***For easy P2pool install and auto setup of Core wallet config files including merged coins. Double click to run p2pool feature and custom web UI visit the following link:***
+
 
 		https://github.com/farsider350/p2pool-oneclick/blob/dgb-scrypt-merged/README.md
 
