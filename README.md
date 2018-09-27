@@ -1,20 +1,30 @@
+For easy P2pool install and auto setup of Core wallet config files including merged coins. Double click to run p2pool feature and custom web UI
+--------------------------------------
+
+		https://github.com/farsider350/p2pool-oneclick/blob/dgb-scrypt-merged/README.md
+
+		
+For the oldschool 
+
 P2pool installation with pypy -- Windows
 --------------------------------------
-On Windows, pypy is only supported via the Windows Subsystem for Linux (WSL). P2pool on pypy on WSL is much faster than P2pool on
-CPython on native Windows. To install WSL, first follow the steps outlined here:
 
-https://msdn.microsoft.com/en-us/commandline/wsl/install_guide
+		On Windows, pypy is only supported via the Windows Subsystem for Linux (WSL). P2pool on pypy on WSL is much faster than P2pool on
+		CPython on native Windows. To install WSL, first follow the steps outlined here:
 
-Once you've done that, run bash and follow the rest of the steps below.
+		https://msdn.microsoft.com/en-us/commandline/wsl/install_guide
+
+		Once you've done that, run bash and follow the rest of the steps below.
+
 
 P2pool installation with pypy -- Linux and Windows
 -------------------------------------------------
-Copy and paste the following commands one paragraph at a time into a bash shell in order to install p2pool on Windows or Linux.
 
+Copy and paste the following commands one line at a time into a bash shell in order to install p2pool on Windows or Linux.
 
 
 		sudo apt-get update
-		
+
 		sudo apt-get install pypy pypy-dev pypy-setuptools gcc build-essential git
 
 		wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo pypy
@@ -44,7 +54,7 @@ Copy and paste the following commands one paragraph at a time into a bash shell 
     
 	
 digibyte.conf
-
+	
 		server=1
 		rpcuser=user
 		rpcpassword=anything long
@@ -65,12 +75,10 @@ Running P2Pool:
 -------------------------
 To use P2Pool, you must be running your own local myriadcoind. For standard configurations, using P2Pool should be as simple as:
 
-For Zen Server
-
+		For Zen Server
 		pypy run_p2pool.py --net digibyte
-    
-For Ilsawa's Server
-	
+		
+		For Ilsawa's Server
 		pypy run_p2pool.py --net digibyteils
 	
 To make your node accessible from the internet, open the following ports on your router (both the worker port and peer-2-peer port please!): Worker Port = 5055; Peer-2-Peer Port = 5024
@@ -81,6 +89,5 @@ Run for additional options:
 
 Donations towards further development:
 -------------------------
-		BTC: 12nQSWig35Wue2AGjiGM5F2LUvSwq8uQqS
-		LTC: LZFdCAGnxQr5JMSvqwV7AFwHKoPdL2RAdU
-		DGB: DG21rdLGRR2sMZDA1pXCrR93dKwjSz8yHo
+BTC: 12nQSWig35Wue2AGjiGM5F2LUvSwq8uQqS
+DGB: DG21rdLGRR2sMZDA1pXCrR93dKwjSz8yHo
