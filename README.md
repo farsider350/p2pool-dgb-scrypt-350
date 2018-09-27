@@ -4,7 +4,7 @@
 		https://github.com/farsider350/p2pool-oneclick/blob/dgb-scrypt-merged/README.md
 
 		
-For the oldschool 
+For the experienced p2pool setup follow the guide bellow
 
 P2pool installation with pypy -- Windows
 --------------------------------------
