@@ -20,7 +20,7 @@ P2pool installation with pypy -- Windows
 P2pool installation with pypy -- Linux and Windows
 -------------------------------------------------
 
-Copy and paste the following commands one line at a time into a bash shell in order to install p2pool on Windows or Linux.
+Copy and paste the following commands one paragraph at a time into a bash shell in order to install p2pool on Windows or Linux.
 
 
 		sudo apt-get update
