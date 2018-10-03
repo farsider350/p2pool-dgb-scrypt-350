@@ -1,21 +1,21 @@
 from p2pool.bitcoin import networks
 
 PARENT=networks.nets['digibyte']
-SHARE_PERIOD = 20
-CHAIN_LENGTH = 1*24*60
-REAL_CHAIN_LENGTH = 1*24*60
+SHARE_PERIOD = 15
+CHAIN_LENGTH = 2*24*60
+REAL_CHAIN_LENGTH = 2*24*60
 TARGET_LOOKBEHIND = 60
-SPREAD = 30
+SPREAD = 80
 IDENTIFIER = '31878C3D13481C8D'.decode('hex')
 PREFIX = '2358B404B4781CD0'.decode('hex')
 P2P_PORT = 5024
 MIN_TARGET = 0
 MAX_TARGET = 2**256//2**20 - 1
 PERSIST = True
-WORKER_PORT = 5055
+WORKER_PORT = 5025
 BOOTSTRAP_ADDRS = 'triplezen.tk'.split(' ')
 ANNOUNCE_CHANNEL = '#triplezen'
-VERSION_CHECK = lambda v: None if 6160200 <= v else 'DigiByte version too old. Upgrade to 6.16.2 or newer!'
+VERSION_CHECK = lambda v: None if 6160500 <= v else 'DigiByte version too old. Upgrade to 6.16.5 or newer!'
 VERSION_WARNING = lambda v: None
 SOFTFORKS_REQUIRED = set(['nversionbips', 'csv', 'segwit'])
 MINIMUM_PROTOCOL_VERSION = 1600

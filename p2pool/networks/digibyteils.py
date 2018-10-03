@@ -1,6 +1,6 @@
 from p2pool.bitcoin import networks
 
-PARENT=networks.nets['digibyte']
+PARENT=networks.nets['digibyteils']
 SHARE_PERIOD=25
 CHAIN_LENGTH=24*60*60//10
 REAL_CHAIN_LENGTH=24*60*60//10
