@@ -532,7 +532,7 @@ class Share(BaseShare):
     SUCCESSOR = NewShare
 
 
-share_versions = {s.VERSION:s for s in [NewShare, PreSegwitShare, MiddleShare, Share]}
+share_versions = {s.VERSION:s for s in [NewShare, PreSegwitShare, Share]}
 
 class WeightsSkipList(forest.TrackerSkipList):
     # share_count, weights, total_weight
