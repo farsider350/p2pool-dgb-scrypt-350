@@ -73,22 +73,11 @@ digibyte.conf
 
 Running P2Pool:
 -------------------------
-To use P2Pool, you must be running your own local myriadcoind. For standard configurations, using P2Pool should be as simple as:
+To use P2Pool, you must be running your own local digibyted. For standard configurations, using P2Pool should be as simple as:
 
 		For Zen Server
 		pypy run_p2pool.py --net digibyte
 		
-		If the Zen Server has no peers and throws an error, start up with 'digibyte2' and let others use 'digibyte' to connect to you.
-		
-		For Ilsawa's Server
-		
-		cd ~
-		cd p2pool-dgb-scrypt-350/p2pool
-		mv data.py data-zen.py
-		mv data-ils.py data.py
-		cd ..
-		pypy run_p2pool.py --net digibyteils
-	
 To make your node accessible from the internet, open the following ports on your router (both the worker port and peer-2-peer port please!): Worker Port = 5025; Peer-2-Peer Port = 5024
 
 Run for additional options:
