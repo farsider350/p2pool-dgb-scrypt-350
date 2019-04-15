@@ -15,9 +15,9 @@ PERSIST=True
 WORKER_PORT=5025
 BOOTSTRAP_ADDRS='161.43.201.255'.split(' ')
 ANNOUNCE_CHANNEL='#p2pool'
-VERSION_CHECK = lambda v: None if 6160500 <= v else 'DigiByte version too old. Upgrade to 6.16.5 or newer!'
+VERSION_CHECK = lambda v: None if 6170200 <= v else 'DigiByte version too old. Upgrade to 6.17.2 or newer!'
 VERSION_WARNING = lambda v: None
-SOFTFORKS_REQUIRED = set(['nversionbips', 'csv', 'segwit'])
+SOFTFORKS_REQUIRED = set(['nversionbips', 'csv', 'segwit', 'reservealgo'])
 MINIMUM_PROTOCOL_VERSION = 1600
 NEW_MINIMUM_PROTOCOL_VERSION = 1700
 SEGWIT_ACTIVATION_VERSION = 17
