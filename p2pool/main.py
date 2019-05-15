@@ -486,7 +486,7 @@ def run():
         type=str, action='append', default=[], dest='merged_urls')
     parser.add_argument('--coinbtext',
         help='append this text to the coinbase',
-        type=str, action='append', default=[TripleZen], dest='coinb_texts')
+        type=str, action='append', default=[], dest='coinb_texts')
     parser.add_argument('--give-author', metavar='DONATION_PERCENTAGE',
         help='donate this percentage of work towards the development of p2pool (default: 0.0)',
         type=float, action='store', default=0.0, dest='donation_percentage')
