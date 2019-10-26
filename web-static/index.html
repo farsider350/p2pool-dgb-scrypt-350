@@ -119,7 +119,7 @@
             
             function fill(url, id) {
                 d3.json(url, function(d) {
-                    d.sort()
+                    //d.sort() // remove silly alphabet share sorting
                     d3.select(id).selectAll().data(d).enter().append('span').text(' ').append('a').attr('href', function(c){return 'share.html#' + c}).text(function(c){return c.substr(-8)});
                 });
             }
