@@ -345,8 +345,50 @@ def get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, stop_event=varia
     new_root.putChild('tails', WebInterface(lambda: ['%064x' % x for t in node.tracker.tails for x in node.tracker.reverse.get(t, set())]))
     new_root.putChild('verified_tails', WebInterface(lambda: ['%064x' % x for t in node.tracker.verified.tails for x in node.tracker.verified.reverse.get(t, set())]))
     new_root.putChild('best_share_hash', WebInterface(lambda: '%064x' % node.best_share_var.value))
-    new_root.putChild('my_share_hashes', WebInterface(lambda: ['%064x' % my_share_hash for my_share_hash in wb.my_share_hashes]))
+    
+    
+
+    def KeyForSortShareHashesByTimestamp(hash):
+        ''' Метод-ключ для сортировки списка хэшей по timestamp шар.'''
+        share = get_share('%064x' % hash) #get share data
+        return share['share_data']['timestamp'] #get timestamp from share_data
+
+    def GetAliveShareHashes():
+        ''' Возвращает массив хэшей живых шар. '''
+        return [hash for hash in wb.my_share_hashes if int('%064x' % hash, 16) in node.tracker.items] #hashes alive shares
+
+    def SortShareHashes():
+        alive_share_hashes = GetAliveShareHashes()
+        list_sorted_shares = sorted(alive_share_hashes, key=KeyForSortShareHashesByTimestamp, reverse=True) #sort alive share hashes by timestamp
+        return ['%064x' % my_share_hash for my_share_hash in list_sorted_shares] #return sorted alive share hashes
+
+    def ShareInfoForList(hash):
+        ''' Формирование словаря данных таблицы для шары с хэшем = hash '''
+        share = get_share(hash)
+        return dict(
+            hash=hash, 
+            number=share['share_data']['absheight'],
+            time=share['share_data']['timestamp'],
+            time_first_seen=share['local']['time_first_seen'],
+            difficulty=share['share_data']['target'],
+            difficulty_network=share['block']['header']['target'])
+
+    def GenerateShareList():
+        ''' Создание массива словарей из данных, которые используются в таблице шар '''
+        alive_share_hashes = GetAliveShareHashes()
+        return [ShareInfoForList('%064x' % share_hash) for share_hash in alive_share_hashes]
+
+
+
+    # Sort share hashes by genereation timestamp
+    new_root.putChild('my_share_hashes', WebInterface(SortShareHashes))
+    
     new_root.putChild('my_share_hashes50', WebInterface(lambda: ['%064x' % my_share_hash for my_share_hash in list(wb.my_share_hashes)[:50]]))
+    
+    # my_share_hashes table
+    new_root.putChild('my_shares_list', WebInterface(GenerateShareList))
+    
+    
     def get_share_data(share_hash_str):
         if int(share_hash_str, 16) not in node.tracker.items:
             return ''

@@ -2,10 +2,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
+        <style type="text/css">
+            .my_shares_list {
+                width: 1000px;
+                background: #ccc;
+                padding: 5px;
+                padding-right: 20px;
+                border: solid 1px black;
+                float: inline-end;
+            }
+        </style>
+
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title>P2Pool</title>
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
         <script type="text/javascript" src="d3.v2.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
         <script type="text/javascript">
             // based on goblin's p2pool-stats project
             
@@ -115,6 +129,35 @@
             fill('/web/tails', '#tails');
             fill('/web/my_share_hashes', '#my_share_hashes');
         </script>
+        <script>
+                function target_to_difficulty(target) { return (0xffff0000 * Math.pow(2, 256 - 64) + 1) / (target + 1); }
+                function convert_num(num){
+                    if (num < 10){
+                        return "0"+num.toString();
+                    } else {
+                        return num.toString();
+                    }
+                }
+                function convert_date(seconds){
+                    date = new Date(1000 * seconds);
+                    return convert_num(date.getMonth()+1) + "/" + convert_num(date.getDate()) + "/" +  date.toString().split(" ").slice(3, 5).join(" ");
+                }
+        
+                d3.json('/web/my_shares_list', function (shares) {
+                    var tr = d3.select('#my_shares_body').selectAll().data(shares).enter().append('tr');
+        
+                    tr.append('td').append('a').text(function (share) { return share.hash.substr(-8) }).attr('href', function (share) { return 'share.html#' + share.hash });
+                    tr.append('td').text(function (share) { return share.number });
+                    tr.append('td').text(function (share) { return convert_date(share.time)});
+                    tr.append('td').text(function (share) { return convert_date(share.time_first_seen)});
+                    tr.append('td').text(function (share) { return target_to_difficulty(share.difficulty) });
+                    tr.append('td').text(function (share) { return target_to_difficulty(share.difficulty_network) });
+        
+                    $(document).ready(function () {
+                        var table = $('#shares_list').DataTable({"order":[[2,"desc"]],"columnDefs": [{ "width": "5%", "targets": 1 }]});
+                    })
+                });
+        </script>
     </head>
     <body>
         <h1>P2Pool <span class="symbol"></span></h1>
@@ -136,6 +179,25 @@
         <p>Tails: <span id="tails"></span></p>
         <p>My shares: <span id="my_share_hashes"></span></p>
         
+        <p>Last shares list: </p>
+        <div class="my_shares_list">
+            <table id="shares_list" class="display cell-border compact">
+                <thead>
+                    <tr>
+                        <th>Hash</th>
+                        <th>Share #</th>
+                        <th>Time</th>
+                        <th>Time first seen</th>
+                        <th>Difficulty</th>
+                        <th>Network difficulty</th>
+                    </tr>
+                </thead>
+                <tbody id="my_shares_body">
+                </tbody>
+            </table>
+        </div>
+
+
         <h2>Blocks found in last day:</h2>
         <p>Note that blocks may have been orphaned from the P2Pool chain and so not be here.</p>
         <table border="1" id="blocks">
