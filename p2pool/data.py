@@ -803,7 +803,7 @@ class ShareStore(object):
     def __init__(self, prefix, net, share_cb, verified_hash_cb):
         self.dirname = os.path.dirname(os.path.abspath(prefix)) #Путь к папке с файлами данных шар.
         self.filename = os.path.basename(os.path.abspath(prefix)) #Название файла данных шар ['shares.']
-        self.archive_dirname = os.path.abspath(dirname + '/archive') #Путь к папке-архиву с данными шар.
+        self.archive_dirname = os.path.abspath(self.dirname + '/archive') #Путь к папке-архиву с данными шар.
         self.net = net
 
         start = time.time()
