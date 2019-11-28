@@ -899,11 +899,13 @@ class ShareStore(object):
     def check_archive_dirname(self):
         ''' Проверка на существование папки-архива, если её нет - создает. '''
         if not os.path.exists(self.archive_dirname):
+            print('Create folder for shares archive.')
             os.makedirs(self.archive_dirname)
     
     def check_remove(self):
         ''' Проверка файла. Если share_hashes и verified_hashes - пустые, то файл архивируется. '''
         to_remove = set()
+        self.check_archive_dirname()
         for filename, (share_hashes, verified_hashes) in self.known_desired.iteritems():
             #print filename, len(share_hashes) + len(verified_hashes)
             if not share_hashes and not verified_hashes:
