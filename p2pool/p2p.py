@@ -678,6 +678,9 @@ class Node(object):
         self.traffic_happened = variable.Event()
         self.nonce = random.randrange(2**64)
         self.peers = {}
+
+        self.updated_peers = {}
+        
         self.bans = {} # address -> end_time
         self.clientfactory = ClientFactory(self, desired_outgoing_conns, max_outgoing_attempts)
         self.serverfactory = ServerFactory(self, max_incoming_conns)
@@ -724,8 +727,21 @@ class Node(object):
             raise ValueError('already have peer')
         self.peers[conn.nonce] = conn
         
+        if conn.other_sub_version.find('-test') != -1:
+            self.updated_peers[conn.nonce] = conn
+
         print '%s peer %s:%i established. p2pool version: %i %r' % ('Incoming connection from' if conn.incoming else 'Outgoing connection to', conn.addr[0], conn.addr[1], conn.other_version, conn.other_sub_version)
         
+
+    def lost_updated_conn(self, conn, reason):
+        ''' потеря подключения к обновленной ноде '''
+        if conn.other_sub_version.find('-test') != -1:
+            if conn.nonce not in self.updated_peers:
+                raise ValueError('''don't have peer''')
+            if conn is not self.updated_peers[conn.nonce]:
+                raise ValueError('wrong conn')
+            del self.updated_peers[conn.nonce]
+
     def lost_conn(self, conn, reason):
         if conn.nonce not in self.peers:
             raise ValueError('''don't have peer''')
@@ -733,6 +749,8 @@ class Node(object):
             raise ValueError('wrong conn')
         del self.peers[conn.nonce]
         
+        self.lost_updated_conn(conn, reason) #проверка и удаление обновленного пира.
+
         print 'Lost peer %s:%i - %s' % (conn.addr[0], conn.addr[1], reason.getErrorMessage())
     
     
