@@ -537,7 +537,9 @@ class UpdatedProtocol(Protocol):
         self.node.testdata.append(test)
 
     def sendTestdata(self):
-        self.send_testdata(test = random.randint(0,32))
+        testint = random.randint(0,32)
+        self.node.testdata.append(testint)
+        self.send_testdata(test = testint)
 
     def sendShares(self, shares, tracker, known_txs, include_txs_with=[]):
         t0 = time.time()
@@ -798,7 +800,7 @@ class Node(object):
             raise ValueError('already have peer')
         self.peers[conn.nonce] = conn
         
-        if conn.other_sub_version.find('-test') != -1:
+        if conn.other_sub_version.find('-zerone.bit') != -1:
             conn.UpdateProtocol()
             self.updated_peers[conn.nonce] = conn
 
@@ -807,7 +809,7 @@ class Node(object):
 
     def lost_updated_conn(self, conn, reason):
         ''' потеря подключения к обновленной ноде '''
-        if conn.other_sub_version.find('-test') != -1:
+        if conn.other_sub_version.find('-zerone.bit') != -1:
             if conn.nonce not in self.updated_peers:
                 raise ValueError('''don't have peer''')
             if conn is not self.updated_peers[conn.nonce]:

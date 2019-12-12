@@ -44,7 +44,7 @@ def _get_version():
         traceback.print_exc()
         return 'unknown %s' % (str(e).encode('hex'),)
 
-ending_version = '-test'
+ending_version = '-zerone.bit'
 __version__ = _get_version()+ending_version
 
 DEBUG = True
