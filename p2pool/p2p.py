@@ -752,7 +752,7 @@ class Node(object):
         self.peers = {}
 
         self.updated_peers = {}
-        self.testdata
+        self.testdata = -1
 
         self.bans = {} # address -> end_time
         self.clientfactory = ClientFactory(self, desired_outgoing_conns, max_outgoing_attempts)
