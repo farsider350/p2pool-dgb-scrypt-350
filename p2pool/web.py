@@ -225,7 +225,7 @@ def get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, stop_event=varia
     web_root.putChild('peer_versions', WebInterface(lambda: dict(('%s:%i' % peer.addr, peer.other_sub_version) for peer in node.p2p_node.peers.itervalues())))
 
     web_root.putChild('updated_peer_versions', WebInterface(lambda: dict(('%s:%i' % peer.addr, peer.other_sub_version) for peer in node.p2p_node.updated_peers.itervalues())))
-    web_root.putChild('test_data', WebInterface(lambda: list(node.p2p_node.testdata)))
+    web_root.putChild('test_data', WebInterface(lambda: [node.p2p_node.testdata]))
     
     
     web_root.putChild('payout_addr', WebInterface(lambda: bitcoin_data.pubkey_hash_to_address(wb.my_pubkey_hash, node.net.PARENT)))

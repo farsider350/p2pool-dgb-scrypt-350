@@ -531,14 +531,14 @@ class UpdatedProtocol(Protocol):
         pass
 
     message_testdata = pack.ComposedType([
-        ('test', pack.IntType(64)),
+        ('test', pack.IntType(16)),
     ])
     def handle_testdata(self, test):
-        self.node.testdata.append(test)
+        self.node.testdata = test
 
     def sendTestdata(self):
         testint = random.randint(0,32)
-        self.node.testdata.append(testint)
+        self.node.testdata = testint
         self.send_testdata(test = testint)
 
     def sendShares(self, shares, tracker, known_txs, include_txs_with=[]):
@@ -752,7 +752,7 @@ class Node(object):
         self.peers = {}
 
         self.updated_peers = {}
-        self.testdata = []
+        self.testdata
 
         self.bans = {} # address -> end_time
         self.clientfactory = ClientFactory(self, desired_outgoing_conns, max_outgoing_attempts)
