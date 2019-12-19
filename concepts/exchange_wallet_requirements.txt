@@ -1,0 +1,69 @@
+Exchange wallet requirements.
+
+1. Безопасное хранение средств для быстрого биржевого обмена.
+2. Любая транзакция на бирже происходит мгновенно.
+3. Доступ к кошельку только у пользователя
+4. В рамках биржевого обмена виртуальные кошельки с новыми монетами других блокчейнов также доступны только владельцу исходного кошелька.
+5. Вывод средств через передачу полных прав управления кошельком или инициация владельцем исходного кошелька перевода средств на сторону
+6. Возможно до начала торгов установка альтернативных кошельков для альткоинов, на которые в дальнейшем возможен исключительный вывод средств, то есть только на эти кошельки и больше ни на какие другие.
+
+
+
+From book:
+
+Efficient micro-payments. A third example of Bitcoin scripts is a way to do efficient micro-payments.
+Say that Alice is a customer who wants to continually pay Bob small amounts of money for some
+service that Bob provides. For example, Bob may be Alice’s wireless service provider, and requires her
+to pay a small fee for every minute that she talks on her phone.
+Creating a Bitcoin transaction for every minute that Alice speaks on the phone won’t work. That will
+create too many transactions, and the transaction fees add up. If the value of each one of these
+transactions is on the order of what the transaction fees are, Alice is going to be paying quite a high
+cost to do this.
+What we’d like is to be able to combine all these small payments into one big payment at the end. It
+turns out that there’s a neat way to do this. We start with a MULTISIG transaction that pays the
+maximum amount Alice would ever need to spend to an output requiring both Alice and Bob to sign
+to release the coins. Now, after the first minute that Alice has used the service, or the first time Alice
+needs to make a micropayment, she signs a transaction spending those coins that were sent to the
+MULTISIG address, sending one unit of payment to Bob and returning the rest to Alice. After the next
+minute of using the service, Alice signs another transaction, this time paying two units to Bob and
+sending the rest to herself. Notice these are signed only by Alice, and haven’t been signed by Bob yet,
+nor are they being published to the block chain. Alice will keep sending these transactions to Bob
+every minute that she uses the service. Eventually, Alice will finish using the service, and tells Bob,
+“I’m done, please cut off my service.” At this point Alice will stop signing additional transactions. Upon
+hearing this, Bob will say “Great. I’ll disconnect your service, and I’ll take that last transaction that you
+sent me, sign it, and publish that to the block chain.”
+Since each transaction was paying Bob a little bit more, and Alice a little bit less, the final transaction
+that Bob redeems pays him in full for the service that he provided and returns the rest of the money
+to Alice. All those transactions that Alice signed along the way won’t make it to the block chain. Bob
+doesn’t have to sign them. They’ll just get discarded.
+86
+Technically all of these transactions are double-spends. So unlike the case with green addresses
+where we were specifically trying to avoid double-spends, with a strong guarantee, with this
+micro-payment protocol, we’re actually generating a huge amount of potential double-spends. In
+practice, however, if both parties are operating normally, Bob will never sign any transaction but the
+last one, in which case the block chain won’t actually see any attempt at a double-spend.
+There’s one other tricky detail: what if Bob never signs the last transaction? He may just say, “I’m
+happy to let the coins sit there in escrow forever,” in which case, maybe the coins won’t move, but
+Alice will lose the full value that she paid at the beginning. There’s a very clever way to avoid this
+problem using a feature that we mentioned briefly earlier, and will explain now.
+Lock time. To avoid this problem, before the micro-payment protocol can even start, Alice and Bob
+will both sign a transaction which refunds all of Alice’s money back to her, but the refund is “locked”
+until some time in the future. So after Alice signs, but before she broadcasts, the first MULTISIG
+transaction that puts her funds into escrow, she’ll want to get this refund transaction from Bob and
+hold on to it. That guarantees that if she makes it to time t and Bob hasn’t signed any of the small
+transactions that Alice has sent, Alice can publish this transaction which refunds all of the money
+directly to her.
+What does it mean that it’s locked until time t? Recall when we looked at the metadata in Bitcoin
+transactions, that there was this lock_time parameter, which we had left unexplained. The way it
+works is that if you specify any value other than zero for the lock time, it tells miners not to publish
+the transaction until the specified lock time. The transaction will be invalid before either a specific
+block number, or a specific point in time, based on the timestamps that are put into blocks. So this is a
+way of preparing a transaction that can only be spent in the future if it isn’t already spent by then. It
+works quite nicely in the micro-payment protocol as a safety valve for Alice to know that if Bob never
+signs, eventually she’ll be able to get her money back.
+Hopefully, these examples have shown you that we can do some neat stuff with Bitcoin scripts. We
+discussed three simple and practical examples, but there are many others that have been researched.
+One of them is multi-player lotteries, a very complicated multi-step protocol with lots of transactions
+having different lock times and escrows in case people cheat. There are also some neat protocols that
+utilize the scripting language to allow different people to get their coins together and mix them, so
+that it’s harder to trace who owns which coin. We’ll see that in detail in Chapter 6.
