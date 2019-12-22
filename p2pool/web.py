@@ -378,6 +378,9 @@ def get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, stop_event=varia
             difficulty=share['share_data']['target'],
             difficulty_network=share['block']['header']['target'])
 
+    def GenerateSortedShareList():
+        return sorted(GenerateShareList, lambda share: share['time'], reverse = True)[:50]
+
     def GenerateShareList():
         ''' Создание массива словарей из данных, которые используются в таблице шар '''
         alive_share_hashes = GetAliveShareHashes()
@@ -388,10 +391,11 @@ def get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, stop_event=varia
     # Sort share hashes by genereation timestamp
     new_root.putChild('my_share_hashes', WebInterface(SortShareHashes))
     
-    new_root.putChild('my_share_hashes50', WebInterface(lambda: ['%064x' % my_share_hash for my_share_hash in list(wb.my_share_hashes)[:50]]))
+    #new_root.putChild('my_share_hashes50', WebInterface(lambda: ['%064x' % my_share_hash for my_share_hash in list(wb.my_share_hashes)[:50]]))
     
     # my_share_hashes table
-    new_root.putChild('my_shares_list', WebInterface(GenerateShareList))
+    #new_root.putChild('my_shares_list', WebInterface(GenerateShareList))
+    new_root.putChild('my_shares_list', WebInterface(GenerateSortedShareList))
     
     
     def get_share_data(share_hash_str):
