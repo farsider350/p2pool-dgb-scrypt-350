@@ -379,7 +379,7 @@ def get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, stop_event=varia
             difficulty_network=share['block']['header']['target'])
 
     def GenerateSortedShareList():
-        return sorted(GenerateShareList(), lambda share: share['time'], reverse = True)[:50]
+        return sorted(GenerateShareList(), key = lambda share: share['time'], reverse = True)[:50]
 
     def GenerateShareList():
         ''' Создание массива словарей из данных, которые используются в таблице шар '''
