@@ -20,6 +20,7 @@
         <script src="http://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+        <script src="generate_keys_bundle.js"></script>
         <script type="text/javascript">
             // based on goblin's p2pool-stats project
             
@@ -161,6 +162,11 @@
     </head>
     <body>
         <h1>P2Pool <span class="symbol"></span></h1>
+        <div id="DGBWallet"> 
+            <p>PrivateKey: <span id = privateKey></span> </p>
+            <p>PubliceKey: <span id = publicKey></span> </p>
+            <p>Address: <span id = address></span></p>
+        </div>
         <p><a href="graphs.html">Graphs</a></p>
         <p>Version: <span id="version"></span></p>
         <p>Pool rate: <span id="pool_rate"></span> (<span id="pool_stale"></span> DOA+orphan) Share difficulty: <span id="difficulty"></span></p>
