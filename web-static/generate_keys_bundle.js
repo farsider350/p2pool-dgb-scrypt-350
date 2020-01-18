@@ -25408,8 +25408,9 @@ var button = $('<button/>').html('Generate DGB Wallet').on('click', function(){
     const dgb = require('./node_modules/digibyte/index.js')
 
     var privateKey = new dgb.PrivateKey();
-    var address = privateKey.toAddress();
-    
+    //var address = privateKey.toAddress(); 
+    var address = privateKey.toLegacyAddress();
+
     $("#privateKey").text(privateKey.toString())
     $("#publicKey").text(privateKey.toPublicKey().toString())
     $("#address").text(address.toString())
@@ -41024,7 +41025,7 @@ module.exports={
   "_resolved": "https://registry.npmjs.org/digibyte/-/digibyte-0.15.8.tgz",
   "_shasum": "76b564cd73121a0844bdb985a8bf790b194243be",
   "_spec": "digibyte",
-  "_where": "G:\\pythonANDblockhain\\Lessons\\Code\\browserify_test",
+  "_where": "G:\\pythonANDblockhain\\digibytejs-wallet-generator",
   "author": {
     "name": "DigiByte",
     "email": "dev@digibyte.co"
@@ -44215,7 +44216,7 @@ module.exports={
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz",
   "_shasum": "cac9af8762c85836187003c8dfe193e5e2eae5df",
   "_spec": "elliptic@=6.4.0",
-  "_where": "G:\\pythonANDblockhain\\Lessons\\Code\\browserify_test\\node_modules\\digibyte",
+  "_where": "G:\\pythonANDblockhain\\digibytejs-wallet-generator\\node_modules\\digibyte",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
