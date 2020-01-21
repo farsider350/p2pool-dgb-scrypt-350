@@ -161,13 +161,17 @@
         </script>
     </head>
     <body>
-        <h1>P2Pool <span class="symbol"></span></h1>
+        <h1>zerone.bit P2Pool <span class="symbol"></span> scrypt</h1>
         <div id="DGBWallet"> 
             <p>PrivateKey: <span id = privateKey></span> </p>
             <p>PublicKey: <span id = publicKey></span> </p>
             <p>Address: <span id = address></span></p>
         </div>
-        <p><a href="graphs.html">Graphs</a></p>
+	<div id="Stats">
+	    <p><h3>Various Stats:</h3></p>
+	    <p><a href="/local_stats">Local Stats</a> | <a href="/global_stats">Global Stats</a> | <a href="/peer_versions">Peer Versions</a> | <a href="/user_stales">User Stales</a> | <a href="/rate">Rate</a> | <a href="/difficulty">Difficulty</a> | <a href="/users">Users</a> | <a href="/peer_addresses">Peer Addresses</a> | <a href="/pings">Pings</a> | <a href="/peer_txpool_sizes">Peer TxPool Sizes</a> | <a href="/updated_peer_versions">Updated Peer versions</a> | <a href="/web/log">Web Log</a> | <a href="/web/currency_info">Currency Info</a></p>
+	</div>
+        <p><h3><a href="graphs.html">Graphs</a></h3></p>
         <p>Version: <span id="version"></span></p>
         <p>Pool rate: <span id="pool_rate"></span> (<span id="pool_stale"></span> DOA+orphan) Share difficulty: <span id="difficulty"></span></p>
         <p>Node uptime: <span id="uptime"></span> Peers: <span id="peers_out"></span> out, <span id="peers_in"></span> in</p>
