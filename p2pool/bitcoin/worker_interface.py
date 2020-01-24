@@ -141,5 +141,5 @@ class CachingWorkerBridge(object):
         
         return res
 
-        def __getattr__(self, attr):
-            return getattr(self._inner, attr)
+    def __getattr__(self, attr):
+        return getattr(self._inner, attr)
