@@ -140,7 +140,7 @@ class BaseShare(object):
         return t
 
     @classmethod
-    def generate_transaction(cls, tracker, share_data, block_target, desired_timestamp, desired_target, ref_merkle_link, desired_other_transaction_hashes_and_fees, net, des_share_tar = None, known_txs=None, last_txout_nonce=0, base_subsidy=None, segwit_data=None):
+    def generate_transaction(cls, tracker, share_data, block_target, desired_timestamp, desired_target, ref_merkle_link, desired_other_transaction_hashes_and_fees, net, known_txs=None, last_txout_nonce=0, base_subsidy=None, segwit_data=None):
         t0 = time.time()
         previous_share = tracker.items[share_data['previous_share_hash']] if share_data['previous_share_hash'] is not None else None
         
@@ -154,10 +154,7 @@ class BaseShare(object):
             pre_target2 = math.clip(pre_target, (previous_share.max_target*9//10, previous_share.max_target*11//10))
             pre_target3 = math.clip(pre_target2, (net.MIN_TARGET, net.MAX_TARGET))
         max_bits = bitcoin_data.FloatingInteger.from_target_upper_bound(pre_target3)
-        if des_share_tar is None:
-            bits = bitcoin_data.FloatingInteger.from_target_upper_bound(math.clip(des_share_tar, (net.MIN_TARGET, pre_target3)))
-        else:
-            bits = bitcoin_data.FloatingInteger.from_target_upper_bound(math.clip(desired_target, (pre_target3//30, pre_target3)))
+        bits = bitcoin_data.FloatingInteger.from_target_upper_bound(math.clip(desired_target, (pre_target3//30, pre_target3)))
         
         new_transaction_hashes = []
         new_transaction_size = 0 # including witnesses
@@ -545,7 +542,7 @@ class WeightsSkipList(forest.TrackerSkipList):
     def get_delta(self, element):
         from p2pool.bitcoin import data as bitcoin_data
         share = self.tracker.items[element]
-        att = bitcoin_data.target_to_average_attempts(share.target) #2**256//(target + 1)
+        att = bitcoin_data.target_to_average_attempts(share.target)
         return 1, {share.new_script: att*(65535-share.share_data['donation'])}, att*65535, att*share.share_data['donation']
     
     def combine_deltas(self, (share_count1, weights1, total_weight1, total_donation_weight1), (share_count2, weights2, total_weight2, total_donation_weight2)):
@@ -726,8 +723,8 @@ def update_min_protocol_version(counts, share):
 
 def get_pool_attempts_per_second(tracker, previous_share_hash, dist, min_work=False, integer=False):
     assert dist >= 2
-    near = tracker.items[previous_share_hash] #last share
-    far = tracker.items[tracker.get_nth_parent_hash(previous_share_hash, dist - 1)] #last 200 shares back
+    near = tracker.items[previous_share_hash]
+    far = tracker.items[tracker.get_nth_parent_hash(previous_share_hash, dist - 1)]
     attempts = tracker.get_delta(near.hash, far.hash).work if not min_work else tracker.get_delta(near.hash, far.hash).min_work
     time = near.timestamp - far.timestamp
     if time <= 0:

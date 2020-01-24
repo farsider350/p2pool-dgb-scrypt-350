@@ -307,8 +307,7 @@ class WorkerBridge(worker_interface.WorkerBridge):
                     desired_share_target = min(desired_share_target,
                         bitcoin_data.average_attempts_to_target((bitcoin_data.target_to_average_attempts(self.node.bitcoind_work.value['bits'].target)*self.node.net.SPREAD)*self.node.net.PARENT.DUST_THRESHOLD/block_subsidy)
                     )
-        else:
-            desired_share_target2 = desired_share_target
+        
         if True:
             share_info, gentx, other_transaction_hashes, get_share = share_type.generate_transaction(
                 tracker=self.node.tracker,
@@ -332,7 +331,6 @@ class WorkerBridge(worker_interface.WorkerBridge):
                 block_target=self.current_work.value['bits'].target,
                 desired_timestamp=int(time.time() + 0.5),
                 desired_target=desired_share_target,
-                des_share_tar = desired_share_target2,
                 ref_merkle_link=dict(branch=[], index=0),
                 desired_other_transaction_hashes_and_fees=zip(tx_hashes, self.current_work.value['transaction_fees']),
                 net=self.node.net,
