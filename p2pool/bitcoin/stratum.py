@@ -14,6 +14,8 @@ class StratumRPCMiningProvider(object):
         self.other = other
         self.transport = transport
         
+        self.desired_pseudoshare_target = None
+
         self.username = None
         self.handler_map = expiring_dict.ExpiringDict(300)
         
