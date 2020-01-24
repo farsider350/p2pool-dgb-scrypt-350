@@ -542,7 +542,7 @@ class WeightsSkipList(forest.TrackerSkipList):
     def get_delta(self, element):
         from p2pool.bitcoin import data as bitcoin_data
         share = self.tracker.items[element]
-        att = bitcoin_data.target_to_average_attempts(share.target)
+        att = bitcoin_data.target_to_average_attempts(share.target) #2**256//(target + 1)
         return 1, {share.new_script: att*(65535-share.share_data['donation'])}, att*65535, att*share.share_data['donation']
     
     def combine_deltas(self, (share_count1, weights1, total_weight1, total_donation_weight1), (share_count2, weights2, total_weight2, total_donation_weight2)):
@@ -723,8 +723,8 @@ def update_min_protocol_version(counts, share):
 
 def get_pool_attempts_per_second(tracker, previous_share_hash, dist, min_work=False, integer=False):
     assert dist >= 2
-    near = tracker.items[previous_share_hash]
-    far = tracker.items[tracker.get_nth_parent_hash(previous_share_hash, dist - 1)]
+    near = tracker.items[previous_share_hash] #last share
+    far = tracker.items[tracker.get_nth_parent_hash(previous_share_hash, dist - 1)] #last 200 shares back
     attempts = tracker.get_delta(near.hash, far.hash).work if not min_work else tracker.get_delta(near.hash, far.hash).min_work
     time = near.timestamp - far.timestamp
     if time <= 0:
