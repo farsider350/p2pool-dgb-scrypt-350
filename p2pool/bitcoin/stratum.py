@@ -31,6 +31,8 @@ class StratumRPCMiningProvider(object):
     def rpc_authorize(self, username, password):
         self.username = username
         
+        _, self.address, self.desired_share_target, self.desired_pseudoshare_target = self.wb.get_user_details(username)
+
         reactor.callLater(0, self._send_work)
     
     def _send_work(self):
@@ -41,7 +43,11 @@ class StratumRPCMiningProvider(object):
             self.transport.loseConnection()
             return
         jobid = str(random.randrange(2**128))
-        self.other.svc_mining.rpc_set_difficulty(bitcoin_data.target_to_difficulty(x['share_target'])*self.wb.net.DUMB_SCRYPT_DIFF).addErrback(lambda err: None)
+
+        if self.desired_share_target:
+            self.other.svc_mining.rpc_set_difficulty(bitcoin_data.target_to_difficulty(desired_share_target)*self.wb.net.DUMB_SCRYPT_DIFF).addErrback(lambda err: None)
+        else:
+            self.other.svc_mining.rpc_set_difficulty(bitcoin_data.target_to_difficulty(x['share_target'])*self.wb.net.DUMB_SCRYPT_DIFF).addErrback(lambda err: None)
         self.other.svc_mining.rpc_notify(
             jobid, # jobid
             getwork._swap4(pack.IntType(256).pack(x['previous_block'])).encode('hex'), # prevhash
