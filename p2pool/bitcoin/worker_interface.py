@@ -140,3 +140,6 @@ class CachingWorkerBridge(object):
             self._cache[args] = x, handler, nonce + 1
         
         return res
+
+        def __getattr__(self, attr):
+            return getattr(self._inner, attr)
