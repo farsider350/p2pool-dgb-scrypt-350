@@ -356,12 +356,15 @@ class WorkerBridge(worker_interface.WorkerBridge):
                 # every ~0.01 seconds.
                 target = min(target, 3000 * bitcoin_data.average_attempts_to_target((bitcoin_data.target_to_average_attempts(
                     self.node.bitcoind_work.value['bits'].target)*self.node.net.SPREAD)*self.node.net.PARENT.DUST_THRESHOLD/block_subsidy))
+                
+                
+                target = max(target, share_info['bits'].target)
+                for aux_work, index, hashes in mm_later:
+                    target = max(target, aux_work['target'])
+                target = math.clip(target, self.node.net.PARENT.SANE_TARGET_RANGE)
         else:
             target = desired_pseudoshare_target
-        target = max(target, share_info['bits'].target)
-        for aux_work, index, hashes in mm_later:
-            target = max(target, aux_work['target'])
-        target = math.clip(target, self.node.net.PARENT.SANE_TARGET_RANGE)
+        
         
         getwork_time = time.time()
         lp_count = self.new_work_event.times
