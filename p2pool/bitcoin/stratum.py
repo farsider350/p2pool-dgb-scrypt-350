@@ -5,7 +5,7 @@ from twisted.internet import protocol, reactor
 from twisted.python import log
 
 from p2pool.bitcoin import data as bitcoin_data, getwork
-from p2pool.util import expiring_dict, jsonrpc, pack
+from p2pool.util import expiring_dict, jsonrpc, pack, math
 
 
 class StratumRPCMiningProvider(object):
@@ -34,6 +34,7 @@ class StratumRPCMiningProvider(object):
         self.username = username
         
         _, self.address, self.desired_share_target, self.desired_pseudoshare_target = self.wb.get_user_details(username)
+        self.desired_share_target = math.clip(self.desired_share_target(self.wb.net.MIN_TARGET, self.wb.net.MAX_TARGET))
 
         reactor.callLater(0, self._send_work)
     
