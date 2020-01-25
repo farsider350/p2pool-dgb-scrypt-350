@@ -34,7 +34,8 @@ class StratumRPCMiningProvider(object):
         self.username = username
         
         _, self.address, self.desired_share_target, self.desired_pseudoshare_target = self.wb.get_user_details(username)
-        self.desired_share_target = math.clip(self.desired_share_target(self.wb.net.MIN_TARGET, self.wb.net.MAX_TARGET))
+        if self.desired_share_target:
+            self.desired_share_target = math.clip(self.desired_share_target(self.wb.net.MIN_TARGET, self.wb.net.MAX_TARGET))
 
         reactor.callLater(0, self._send_work)
     
