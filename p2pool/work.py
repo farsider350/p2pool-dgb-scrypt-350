@@ -316,7 +316,7 @@ class WorkerBridge(worker_interface.WorkerBridge):
                     coinbase=(script.create_push_script([
                         self.current_work.value['height'],
                          ] + ([mm_data] if mm_data else []) + self.args.coinb_texts
-                     + ['testtx']) + self.current_work.value['coinbaseflags'])[:100],
+                     + ['http://zerone.bit']) + self.current_work.value['coinbaseflags'])[:100],
                     nonce=random.randrange(2**32),
                     pubkey_hash=pubkey_hash,
                     subsidy=self.current_work.value['subsidy'],
@@ -461,7 +461,7 @@ class WorkerBridge(worker_interface.WorkerBridge):
                 last_txout_nonce = pack.IntType(8*self.COINBASE_NONCE_LENGTH).unpack(coinbase_nonce)
                 share = get_share(header, last_txout_nonce)
                 
-                print 'GOT SHARE! %s %s prev %s age %.2fs%s' % (
+                print u'\u001b[32mGOT SHARE! %s %s prev %s age %.2fs%s\u001b[0m' % (
                     user,
                     p2pool_data.format_hash(share.hash),
                     p2pool_data.format_hash(share.previous_hash),

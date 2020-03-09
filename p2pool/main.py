@@ -182,7 +182,7 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
         ss = p2pool_data.ShareStore(os.path.join(datadir_path, 'shares.'), net, share_cb, known_verified.add)
         print "    ...done loading %i shares (%i verified)!" % (len(shares), len(known_verified))
         print
-        
+
         
         print 'Initializing work...'
         
@@ -284,6 +284,7 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
                     yield deferral.sleep(random.expovariate(1/120))
             upnp_thread()
         
+
         # start listening for workers with a JSON-RPC server
         
         print 'Listening for workers on %r port %i...' % (worker_endpoint[0], worker_endpoint[1])
