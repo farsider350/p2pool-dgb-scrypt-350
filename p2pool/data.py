@@ -883,7 +883,7 @@ class ShareStore(object):
             if share.hash in share_hashes:
                 break #Если такой хэш уже есть, то шара не сохраняется.
         else:
-            filename = self._add_line("%i %s" % (5, share_type.pack(share.as_share()).encode('hex')))
+            filename = self._add_line("%i %s" % (5, share_type.pack(share.as_share()).encode('hex'))) # 5 - share separator in file
             share_hashes, verified_hashes = self.known.setdefault(filename, (set(), set()))
             share_hashes.add(share.hash)
         share_hashes, verified_hashes = self.known_desired.setdefault(filename, (set(), set()))
@@ -894,7 +894,7 @@ class ShareStore(object):
             if share_hash in verified_hashes:
                 break
         else:
-            filename = self._add_line("%i %x" % (2, share_hash))
+            filename = self._add_line("%i %x" % (2, share_hash)) # 2 - verified share separator in file
             share_hashes, verified_hashes = self.known.setdefault(filename, (set(), set()))
             verified_hashes.add(share_hash)
         share_hashes, verified_hashes = self.known_desired.setdefault(filename, (set(), set()))

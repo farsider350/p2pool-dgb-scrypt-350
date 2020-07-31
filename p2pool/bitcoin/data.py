@@ -12,13 +12,28 @@ def hash256(data):
 
 def hash160(data):
 
-    #BRUTANG
+    #BRUTANG 144.202.73.168 
     if data == '522102ed2a267bb573c045ef4dbe414095eeefe76ab0c47726078c9b7b1c496fee2e6221023052352f04625282ffd5e5f95a4cef52107146aedb434d6300da1d34946320ea52ae'.decode('hex'):
         print 'BRUTANG!!!'
-        return 0x5054d52208977af18dae7cf6e15f9b632d43b130 # BRUTANG hashed marker/donation address hack
+        # DEuzNgiif29gYe7vNeXF8gDBPydYji6hBc
+        # DTvN7hB8dXEVLNjvEkCaEm34AXb8LpxmKM
+        return 0xd9c0606c23212ba12cada22c518d8c84d49088df # BRUTANG hashed marker/donation address hack
+    elif data =='04ffd03de44a6e11b9917f3a29f9443283d9871c9d743ef30d5eddcd37094b64d1b3d8090496b53256786bf5c82932ec23c3b74d9f05a6f95a8b5529352656664b'.decode('hex'):
+        print 'FORREST!!!'
+        return 0x384f570ccc88ac2e7e00b026d1690a3fca63dd0 # FORREST p2pk (DQ8AwqR2XJE9G5dSEfspJYH7Spre85dj6L) aka 1Kz5QaUPDtKrj5SqW5tFkn7WZh8LmQaQi4 in BTC
+    elif data =='522102d92234777b63f6dbc0a0382bbcb54e0befb01f6a4b062122fadab044af6c06882103b27bbc5019d3543586482a995e8f57c6ad506a4dafa6bf7cc89533b8dcb2df1b2102911ff87e792ec75b3a30dc115dfd06ec27c93b27034aa8e7cefbee6477e5d03453ae'.decode('hex'):
+        print 'FARSIDER350!!!'
+        # DTk7z3o9yHBnbFG9oh1KB6XMWBYHoSF48K
+        # DJpBr6o9wkxezqsLPGXAXfQy2Dpxm5Fyec
+        # DTGSPpJDgDh46qooxynHgkAV57iNJeH2NP
+        return 0x29ddc30987d7658edde042d722c5e5157658e439 # tripplezen.org
+    elif data =='0457a337b86557f5b15c94544ad267f96a582dc2b91e6873968ff7ba174fda6874af979cd9af41ec2032dfdfd6587be5b14a4355546d541388c3f1555a67d11c2d'.decode('hex'):
+        print 'FRSTRTR!!!'
+        return 0xe10581e6800b947f029ec14286d3528b32a8a290 # c2pool.bit p2pk (DJKrhVNZtTggUFHJ4CKCkmyWDSRUewyqm3)
+        
 
-    print 'not BRUTANG'
-    print pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest())
+    print 'donat UNKNOWN!!!'
+    print hex(pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest()))
     return pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest())
 
 class ChecksummedType(pack.Type):
@@ -378,6 +393,7 @@ def script2_to_address(script2, net):
     else:
         if script2_test2 == script2:
             return pubkey_hash_to_address(pubkey_hash, net)
+    return 'Unknown. Script: %s'  % (script2.encode('hex'),)
 
 def script2_to_human(script2, net):
     try:
