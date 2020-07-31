@@ -3,6 +3,7 @@
 .vscode/settings.json
 /__pycache__
 .htaccess
-/digibyte-subsidy/build
+/digibyte_subsidy/build
 /litecoin_scrypt/build
 start.sh
+/data
