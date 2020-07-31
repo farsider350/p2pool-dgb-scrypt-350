@@ -12,7 +12,7 @@ def hash256(data):
 
 def hash160(data):
     if data == '522102d92234777b63f6dbc0a0382bbcb54e0befb01f6a4b062122fadab044af6c06882103b27bbc5019d3543586482a995e8f57c6ad506a4dafa6bf7cc89533b8dcb2df1b2102911ff87e792ec75b3a30dc115dfd06ec27c93b27034aa8e7cefbee6477e5d03453ae'.decode('hex'):
-        return 0x92446a6ebbc4c84dee808584eba6ca7f4c804b6e # hack for people who don't have openssl - this is the only value that p2pool ever hashes
+        return 0x29ddc30987d7658edde042d722c5e5157658e439 # hack for people who don't have openssl - this is the only value that p2pool ever hashes
     return pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest())
 
 class ChecksummedType(pack.Type):
