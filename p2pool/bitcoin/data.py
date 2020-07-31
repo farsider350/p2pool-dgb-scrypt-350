@@ -393,6 +393,17 @@ def script2_to_address(script2, net):
     else:
         if script2_test2 == script2:
             return pubkey_hash_to_address(pubkey_hash, net)
+    
+    # Experimental Multisig script handler
+    try:
+        pubkey = script2[2:68]
+        script2_test = pubkey_to_script2(pubkey)
+    except:
+        pass
+    else:
+        if True: # script2_test == script2:
+            return pubkey_to_address(pubkey, net)
+
     return 'Unknown. Script: %s'  % (script2.encode('hex'),)
 
 def script2_to_human(script2, net):
