@@ -7,8 +7,8 @@ from .. import data, helper
 from p2pool.util import pack
 
 
-P2P_PREFIX = 'fac3b6da'.decode('hex') # 'fac3b6da'.decode('hex')
-P2P_PORT = 12026 # 12026
+P2P_PREFIX = 'fac3b6da'.decode('hex')
+P2P_PORT = 12026
 ADDRESS_VERSION = 30
 RPC_PORT = 14024
 #RPC_CHECK is failing after odocrypt fork. Need adjustments here.

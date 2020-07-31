@@ -316,7 +316,7 @@ class WorkerBridge(worker_interface.WorkerBridge):
                     coinbase=(script.create_push_script([
                         self.current_work.value['height'],
                          ] + ([mm_data] if mm_data else []) + self.args.coinb_texts
-                     + ['http://zerone.bit']) + self.current_work.value['coinbaseflags'])[:100],
+                     + ['http://c2pool.bit']) + self.current_work.value['coinbaseflags'])[:100],
                     nonce=random.randrange(2**32),
                     pubkey_hash=pubkey_hash,
                     subsidy=self.current_work.value['subsidy'],
