@@ -32,8 +32,9 @@ def hash160(data):
         return 0xe10581e6800b947f029ec14286d3528b32a8a290 # c2pool.bit p2pk (DJKrhVNZtTggUFHJ4CKCkmyWDSRUewyqm3)
         
 
-    print 'donat UNKNOWN!!!'
-    print hex(pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest()))
+    print u'\u001b[31mdonat UNKNOWN!!!'
+    print u'\u001b[31mdata ::', data.encode('hex')
+    print u'\u001b[31mhash160 ::', hex(pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest()))
     return pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest())
 
 class ChecksummedType(pack.Type):
