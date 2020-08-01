@@ -401,7 +401,7 @@ def script2_to_address(script2, net):
     except:
         pass
     else:
-        if True: # script2_test == script2: # in case if it is Multisig script parse addresses in it and return what?
+        if script2[35:36].encode('hex') == '21': # in case if it is Multisig script return 1st addr
             return pubkey_to_address(pubkey[0:33], net) # now takes only first address from multisig, since web status page can handle only 1 address
 
     return 'Unknown. Script: %s'  % (script2.encode('hex'),)
