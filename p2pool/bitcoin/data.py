@@ -14,7 +14,7 @@ def hash160(data):
 
     #BRUTANG 144.202.73.168 
     if data == '02ed2a267bb573c045ef4dbe414095eeefe76ab0c47726078c9b7b1c496fee2e62'.decode('hex'): # 21023052352f04625282ffd5e5f95a4cef52107146aedb434d6300da1d34946320ea'.decode('hex'):
-        print 'BRUTANG!!!'
+        print u'\u001b[31mBRUTANG\u001B[0m'
         # DEuzNgiif29gYe7vNeXF8gDBPydYji6hBc   +++
         # DTvN7hB8dXEVLNjvEkCaEm34AXb8LpxmKM
         return 0x59e56087b254012f0b3ef620615b2d153ab4366b # BRUTANG hashed marker/donation 1st address hack (Multisig 2 of 2)
