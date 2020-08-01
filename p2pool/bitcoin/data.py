@@ -396,13 +396,13 @@ def script2_to_address(script2, net):
     
     # Experimental Multisig script handler
     try:
-        pubkey = script2[2:68]
-        script2_test = pubkey_to_script2(pubkey)
+        pubkey = script2[2:69] # slice two addresses from multisig separated by 0x21
+        script2_test = pubkey_to_script2(pubkey) # todo implement check for script validity
     except:
         pass
     else:
-        if True: # script2_test == script2:
-            return pubkey_to_address(pubkey, net)
+        if True: # script2_test == script2: # in case if it is Multisig script parse addresses in it and return what?
+            return pubkey_to_address(pubkey[0:33], net) # now takes only first address from multisig, since web status page can handle only 1 address
 
     return 'Unknown. Script: %s'  % (script2.encode('hex'),)
 
