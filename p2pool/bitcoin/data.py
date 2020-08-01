@@ -13,12 +13,12 @@ def hash256(data):
 def hash160(data):
 
     #BRUTANG 144.202.73.168 
-    if data == '02ed2a267bb573c045ef4dbe414095eeefe76ab0c47726078c9b7b1c496fee2e62'.decode('hex') # 21023052352f04625282ffd5e5f95a4cef52107146aedb434d6300da1d34946320ea'.decode('hex'):
+    if data == '02ed2a267bb573c045ef4dbe414095eeefe76ab0c47726078c9b7b1c496fee2e62'.decode('hex'): # 21023052352f04625282ffd5e5f95a4cef52107146aedb434d6300da1d34946320ea'.decode('hex'):
         print 'BRUTANG!!!'
         # DEuzNgiif29gYe7vNeXF8gDBPydYji6hBc   +++
         # DTvN7hB8dXEVLNjvEkCaEm34AXb8LpxmKM
         return 0x59e56087b254012f0b3ef620615b2d153ab4366b # BRUTANG hashed marker/donation 1st address hack (Multisig 2 of 2)
-    if data =='04ffd03de44a6e11b9917f3a29f9443283d9871c9d743ef30d5eddcd37094b64d1b3d8090496b53256786bf5c82932ec23c3b74d9f05a6f95a8b5529352656664b'.decode('hex'):
+    elif data =='04ffd03de44a6e11b9917f3a29f9443283d9871c9d743ef30d5eddcd37094b64d1b3d8090496b53256786bf5c82932ec23c3b74d9f05a6f95a8b5529352656664b'.decode('hex'):
         print 'FORREST!!!'
         return 0x384f570ccc88ac2e7e00b026d1690a3fca63dd0 # FORREST p2pk (DQ8AwqR2XJE9G5dSEfspJYH7Spre85dj6L) aka 1Kz5QaUPDtKrj5SqW5tFkn7WZh8LmQaQi4 in BTC
     # elif data =='522102d92234777b63f6dbc0a0382bbcb54e0befb01f6a4b062122fadab044af6c06882103b27bbc5019d3543586482a995e8f57c6ad506a4dafa6bf7cc89533b8dcb2df1b2102911ff87e792ec75b3a30dc115dfd06ec27c93b27034aa8e7cefbee6477e5d03453ae'.decode('hex'):
