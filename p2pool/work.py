@@ -418,7 +418,7 @@ class WorkerBridge(worker_interface.WorkerBridge):
                     helper.submit_block(dict(header=header, txs=[new_gentx] + other_transactions), False, self.node.factory, self.node.bitcoind, self.node.bitcoind_work, self.node.net)
                     if pow_hash <= header['bits'].target:
                         print
-                        print u'\u001b[32mGOT BLOCK FROM MINER! Passing to bitcoind! %s%064x' % (self.node.net.PARENT.BLOCK_EXPLORER_URL_PREFIX, header_hash)
+                        print u'\u001b[32mGOT BLOCK FROM MINER! Passing to bitcoind! %s%064x\u001B[0m' % (self.node.net.PARENT.BLOCK_EXPLORER_URL_PREFIX, header_hash)
                         print
             except:
                 log.err(None, 'Error while processing potential block:')

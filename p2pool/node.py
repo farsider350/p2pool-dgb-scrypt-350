@@ -271,7 +271,7 @@ class Node(object):
                 return
             helper.submit_block(block, True, self.factory, self.bitcoind, self.bitcoind_work, self.net)
             print
-            print u'\u001b[32mGOT BLOCK FROM PEER! Passing to bitcoind! %s bitcoin: %s%064x' % (p2pool_data.format_hash(share.hash), self.net.PARENT.BLOCK_EXPLORER_URL_PREFIX, share.header_hash)
+            print u'\u001b[32mGOT BLOCK FROM PEER! Passing to bitcoind! %s bitcoin: %s%064x\u001B[0m' % (p2pool_data.format_hash(share.hash), self.net.PARENT.BLOCK_EXPLORER_URL_PREFIX, share.header_hash)
             print
         
         def forget_old_txs():

@@ -35,6 +35,7 @@ def hash160(data):
     print u'\u001b[31mdonat UNKNOWN!!!'
     print u'\u001b[31mdata ::', data.encode('hex')
     print u'\u001b[31mhash160 ::', hex(pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest()))
+    print u'\u001B[0m'
     return pack.IntType(160).unpack(hashlib.new('ripemd160', hashlib.sha256(data).digest()).digest())
 
 class ChecksummedType(pack.Type):
