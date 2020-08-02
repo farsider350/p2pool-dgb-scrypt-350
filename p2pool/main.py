@@ -112,6 +112,7 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
         deferral.RobustLoopingCall(poll_warnings).start(20*60)
         
         print '    ...success!'
+        print
         print '    Current block hash: %x' % (temp_work['previous_block'],)
         print '    Current block height: %i' % (temp_work['height'] - 1,)
         print
@@ -178,7 +179,7 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
             share.time_seen = 0 # XXX
             shares[share.hash] = share
             if len(shares) % 1000 == 0 and shares:
-                print "    %i" % (len(shares),)
+                print "    %i\r" % (len(shares),)
         ss = p2pool_data.ShareStore(os.path.join(datadir_path, 'shares.'), net, share_cb, known_verified.add)
         print "    ...done loading %i shares (%i verified)!" % (len(shares), len(known_verified))
         print
@@ -289,10 +290,20 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
         
         print 'Listening for workers on %r port %i...' % (worker_endpoint[0], worker_endpoint[1])
         
+        # Mining worker bridge
         wb = work.WorkerBridge(node, my_pubkey_hash, args.donation_percentage, merged_urls, args.worker_fee, args, pubkeys, bitcoind)
+
+        # Web server start
         web_root = web.get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, static_dir=args.web_static)
+        
         caching_wb = worker_interface.CachingWorkerBridge(wb)
         worker_interface.WorkerInterface(caching_wb).attach_to(web_root, get_handler=lambda request: request.redirect('/static/'))
+
+        # todo Remove me
+        checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')] # user credentials
+        wrapper = guard.HTTPAuthSessionWrapper(Portal(SimpleRealm(), checkers), [guard.DigestCredentialFactory('md5', 'example.com')])
+        # end new
+
         web_serverfactory = server.Site(web_root)
         
         serverfactory = switchprotocol.FirstByteSwitchFactory({'{': stratum.StratumServerFactory(caching_wb)}, web_serverfactory)

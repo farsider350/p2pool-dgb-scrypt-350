@@ -18,7 +18,7 @@ MIN_TARGET=0
 MAX_TARGET=2**256//2**20 - 1
 PERSIST=True
 WORKER_PORT=5025
-BOOTSTRAP_ADDRS='217.72.4.157'.split(' ') # '161.43.201.255 86.52.128.133'.split(' ')
+BOOTSTRAP_ADDRS='217.72.4.157 217.72.6.241'.split(' ') # '161.43.201.255 86.52.128.133'.split(' ')
 ANNOUNCE_CHANNEL='#p2pool'
 VERSION_CHECK = lambda v: None if 7170200 <= v else 'DigiByte version too old. Upgrade to 7.17.2 or newer!'
 VERSION_WARNING = lambda v: None
