@@ -12,10 +12,10 @@ from twisted.python import log
 from twisted.web import resource, static
 
 # todo new
-from zope.interface import implements
-from twisted.web import guard
-from twisted.cred.portal import IRealm, Portal
-from twisted.cred.checkers import InMemoryUsernamePasswordDatabaseDontUse
+# from zope.interface import implements
+# from twisted.web import guard
+# from twisted.cred.portal import IRealm, Portal
+# from twisted.cred.checkers import InMemoryUsernamePasswordDatabaseDontUse
 # new
 
 import p2pool
@@ -24,30 +24,30 @@ from . import data as p2pool_data, p2p
 from util import deferral, deferred_resource, graph, math, memory, pack, variable
 
 # todo new Resource guard wrapper
-class GuardedResource(resource.Resource):
-    """
-    A resource which is protected by guard 
-    and requires authentication in order
-    to access.
-    """
-    def getChild(self, path, request):
-        return self
+# class GuardedResource(resource.Resource):
+#     """
+#     A resource which is protected by guard 
+#     and requires authentication in order
+#     to access.
+#     """
+#     def getChild(self, path, request):
+#         return self
 
 
-    def render(self, request):
-        return "Authorized!"
+#     def render(self, request):
+#         return "Authorized!"
 
-class SimpleRealm(object):
-    """
-    A realm which gives out L{GuardedResource} instances for authenticated
-    users.
-    """
-    implements(IRealm)
+# class SimpleRealm(object):
+    # """
+    # A realm which gives out L{GuardedResource} instances for authenticated
+    # users.
+    # """
+    # implements(IRealm)
 
-    def requestAvatar(self, avatarId, mind, *interfaces):
-        if resource.IResource in interfaces:
-            return resource.IResource, GuardedResource(), lambda: None
-        raise NotImplementedError()
+    # def requestAvatar(self, avatarId, mind, *interfaces):
+    #     if resource.IResource in interfaces:
+    #         return resource.IResource, GuardedResource(), lambda: None
+    #     raise NotImplementedError()
 # new
 
 def _atomic_read(filename):
@@ -84,8 +84,8 @@ def get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, stop_event=varia
     start_time = time.time()
 
     # todo UNCOMMENT me
-    # web_root = resource.Resource() 
-    web_root = GuardedResource() # todo COMMENT me
+    web_root = resource.Resource() 
+    # web_root = GuardedResource() # todo COMMENT me
 
     def get_users():
         height, last = node.tracker.get_height_and_last(node.best_share_var.value)

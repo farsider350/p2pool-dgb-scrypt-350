@@ -134,10 +134,15 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
             
             if address is not None:
                 res = yield deferral.retry('Error validating cached address:', 5)(lambda: bitcoind.rpc_validateaddress(address))()
-                if not res['isvalid'] or not res['ismine']:
-                    print '    Cached address is either invalid or not controlled by local bitcoind!'
+                if not res['isvalid']: # or not res['ismine']:
+                    print '    Cached address is invalid!'
                     address = None
-            
+                res = yield deferral.retry('Error validating cached address:', 5)(lambda: bitcoind.rpc_getaddressinfo(address))()
+                print res
+                if not res['ismine']:
+                    print '    Cached address is not controlled by local bitcoind!'
+                    address = None
+
             if address is None:
                 print '    Getting payout address from bitcoind...'
                 address = yield deferral.retry('Error getting payout address from bitcoind:', 5)(lambda: bitcoind.rpc_getaccountaddress('p2pool'))()
@@ -300,8 +305,8 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
         worker_interface.WorkerInterface(caching_wb).attach_to(web_root, get_handler=lambda request: request.redirect('/static/'))
 
         # todo Remove me
-        checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')] # user credentials
-        wrapper = guard.HTTPAuthSessionWrapper(Portal(SimpleRealm(), checkers), [guard.DigestCredentialFactory('md5', 'example.com')])
+        # checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')] # user credentials
+        # wrapper = guard.HTTPAuthSessionWrapper(Portal(SimpleRealm(), checkers), [guard.DigestCredentialFactory('md5', 'example.com')])
         # end new
 
         web_serverfactory = server.Site(web_root)
