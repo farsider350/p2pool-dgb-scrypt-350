@@ -15,7 +15,9 @@ if '--iocp' in sys.argv:
     from twisted.internet import iocpreactor
     iocpreactor.install()
 from twisted.internet import defer, reactor, protocol, tcp
-from twisted.web import server
+from twisted.web import server, guard # guard
+from twisted.cred.portal import IRealm, Portal # new
+from twisted.cred.checkers import InMemoryUsernamePasswordDatabaseDontUse # new
 from twisted.python import log
 from nattraverso import portmapper, ipdiscover
 
@@ -298,13 +300,27 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
         
         caching_wb = worker_interface.CachingWorkerBridge(wb)
         worker_interface.WorkerInterface(caching_wb).attach_to(web_root, get_handler=lambda request: request.redirect('/static/'))
-
+        
         # todo Remove me
-        checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')] # user credentials
-        wrapper = guard.HTTPAuthSessionWrapper(Portal(SimpleRealm(), checkers), [guard.DigestCredentialFactory('md5', 'example.com')])
-        # end new
+        @implementer(IRealm)
+        class SimpleRealm(object):
+            """
+            A realm which gives out L{GuardedResource} instances for authenticated
+            users.
+            """
+            
+            def requestAvatar(self, avatarId, mind, *interfaces):
+                root = resource.IResource
+                if root in interfaces:
+                    return resource.IResource, web_root, lambda: None
+                raise NotImplementedError()
 
-        web_serverfactory = server.Site(web_root)
+        checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')] # user credentials
+        portal = Portal(SimpleRealm(), checkers)
+        credFactory = [guard.DigestCredentialFactory('md5', 'example.com')]
+        wrapper = guard.HTTPAuthSessionWrapper(portal, credFactory)        # end new
+
+        web_serverfactory = server.Site(resource=wrapper)
         
         serverfactory = switchprotocol.FirstByteSwitchFactory({'{': stratum.StratumServerFactory(caching_wb)}, web_serverfactory)
         deferral.retry('Error binding to worker port:', traceback=False)(reactor.listenTCP)(worker_endpoint[1], serverfactory, interface=worker_endpoint[0])

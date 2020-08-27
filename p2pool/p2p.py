@@ -476,6 +476,10 @@ class Protocol(p2protocol.Protocol):
                 return
             
             if tx_hash in self.node.known_txs_var.value and not warned:
+                """ It's due to latency. Multiple peers want you to have a transaction that they're now mining but you don't have yet, 
+                so they all send it to you at the same time. This could be solved by adding a small delay before forwarding a transaction 
+                at the cost of increased latency should they find a share or block... I'll think about it.
+                """
                 print 'Peer sent entire transaction %064x that was already received' % (tx_hash,)
                 warned = True
             
