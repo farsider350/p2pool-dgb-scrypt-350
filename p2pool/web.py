@@ -11,16 +11,6 @@ from twisted.internet import defer, reactor
 from twisted.python import log
 from twisted.web import resource, static
 
-<<<<<<< HEAD
-# todo new
-from zope.interface import implementer
-from twisted.web import guard
-from twisted.cred.portal import IRealm, Portal
-from twisted.cred.checkers import InMemoryUsernamePasswordDatabaseDontUse
-# new
-
-=======
->>>>>>> b2b36ea377281c35f998c11c182ea708df3aa755
 import p2pool
 from bitcoin import data as bitcoin_data
 from . import data as p2pool_data, p2p
@@ -62,15 +52,8 @@ def get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, stop_event=varia
     node = wb.node
     start_time = time.time()
 
-<<<<<<< HEAD
-    # todo UNCOMMENT me
-    web_root = resource.Resource()
-    # web_root = GuardedResource() # todo COMMENT me
-
-=======
     web_root = resource.Resource() 
     
->>>>>>> b2b36ea377281c35f998c11c182ea708df3aa755
     def get_users():
         height, last = node.tracker.get_height_and_last(
             node.best_share_var.value)

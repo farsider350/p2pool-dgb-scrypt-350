@@ -31,7 +31,7 @@ import p2pool.node as p2pool_node
 # auth implementation for web stat page
 from zope.interface import implementer
 from twisted.cred.portal import IRealm, Portal
-from twisted.cred.checkers import InMemoryUsernamePasswordDatabaseDontUse
+from twisted.cred.checkers import FilePasswordDB
 from twisted.web.resource import IResource
 from twisted.web.guard import HTTPAuthSessionWrapper, DigestCredentialFactory
 
@@ -359,7 +359,7 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
         worker_interface.WorkerInterface(caching_wb).attach_to(
             web_root, get_handler=lambda request: request.redirect('/static/'))  # / to /static redirect
         
-        checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')]
+        checkers = [FilePasswordDB('httpd.password')]
 
         portal = Portal(SimpleRealm(), checkers)
 
