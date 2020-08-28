@@ -363,7 +363,7 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
 
         portal = Portal(SimpleRealm(), checkers)
 
-        credFactory = [guard.DigestCredentialFactory('md5', 'example.com')]
+        credFactory = [guard.DigestCredentialFactory('md5', 'c2pool.bit')]
 
         wrapper = guard.HTTPAuthSessionWrapper(portal, credFactory)
 
