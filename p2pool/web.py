@@ -11,31 +11,11 @@ from twisted.internet import defer, reactor
 from twisted.python import log
 from twisted.web import resource, static
 
-# auth implementation for web stat page
-from zope.interface import implementer
-from twisted.cred.portal import IRealm, Portal
-from twisted.cred.checkers import InMemoryUsernamePasswordDatabaseDontUse
-# from twisted.web.static import File
-from twisted.web.resource import IResource
-from twisted.web.guard import HTTPAuthSessionWrapper, DigestCredentialFactory
-
-
 import p2pool
 from bitcoin import data as bitcoin_data
 from . import data as p2pool_data, p2p
 from util import deferral, deferred_resource, graph, math, memory, pack, variable
 
-class PublicHTMLRealm(object):
-    implements(IRealm)
-
-    def requestAvatar(self, avatarId, mind, *interfaces):
-        if IResource in interfaces:
-            return (IResource, File("/home/%s/public_html" % (avatarId,)), lambda: None)
-        raise NotImplementedError()
-
-portal = Portal(PublicHTMLRealm(), [FilePasswordDB('httpd.password')]) # check realtive path
-# credentialFactory = DigestCredentialFactory("md5", "localhost:8080")
-# resource = HTTPAuthSessionWrapper(portal, [credentialFactory])
 
 def _atomic_read(filename):
     try:
@@ -70,10 +50,8 @@ def get_web_root(wb, datadir_path, bitcoind_getnetworkinfo_var, stop_event=varia
     node = wb.node
     start_time = time.time()
 
-    # todo UNCOMMENT me
     web_root = resource.Resource() 
-    # web_root = GuardedResource() # todo COMMENT me
-
+    
     def get_users():
         height, last = node.tracker.get_height_and_last(node.best_share_var.value)
         weights, total_weight, donation_weight = node.tracker.get_cumulative_weights(node.best_share_var.value, min(height, 720), 65535*2**256)

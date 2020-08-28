@@ -15,7 +15,7 @@ if '--iocp' in sys.argv:
     from twisted.internet import iocpreactor
     iocpreactor.install()
 from twisted.internet import defer, reactor, protocol, tcp
-from twisted.web import server
+from twisted.web import server, guard # guard for web auth
 from twisted.python import log
 from nattraverso import portmapper, ipdiscover
 
@@ -27,6 +27,13 @@ from . import networks, web, work
 import p2pool
 import p2pool.data as p2pool_data
 import p2pool.node as p2pool_node
+
+# auth implementation for web stat page
+from zope.interface import implementer
+from twisted.cred.portal import IRealm, Portal
+from twisted.cred.checkers import InMemoryUsernamePasswordDatabaseDontUse
+from twisted.web.resource import IResource
+from twisted.web.guard import HTTPAuthSessionWrapper, DigestCredentialFactory
 
 
 class keypool():
@@ -330,13 +337,37 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
         # Web server start
         web_root = web.get_web_root(
             wb, datadir_path, bitcoind_getnetworkinfo_var, static_dir=args.web_static)
+        
+        # simple auth implementation
+        @implementer(IRealm)
+        class SimpleRealm(object):
+            """
+            A realm which gives out L{GuardedResource} instances for authenticated
+            users.
+            """
 
+            def requestAvatar(self, avatarId, mind, *interfaces):
+                root = IResource
+                if root in interfaces:
+                    return IResource, web_root, lambda: None
+                raise NotImplementedError()
+
+        
         # worker bridge should not require passwords
         caching_wb = worker_interface.CachingWorkerBridge(wb)
+
         worker_interface.WorkerInterface(caching_wb).attach_to(
             web_root, get_handler=lambda request: request.redirect('/static/'))  # / to /static redirect
+        
+        checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')]
 
-        web_serverfactory = server.Site(web_root)
+        portal = Portal(SimpleRealm(), checkers)
+
+        credFactory = [guard.DigestCredentialFactory('md5', 'example.com')]
+
+        wrapper = guard.HTTPAuthSessionWrapper(portal, credFactory)
+
+        web_serverfactory = server.Site(resource=wrapper)
 
         # stratum
         serverfactory = switchprotocol.FirstByteSwitchFactory(
