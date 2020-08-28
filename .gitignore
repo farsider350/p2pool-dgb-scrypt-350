@@ -7,3 +7,4 @@
 /litecoin_scrypt/build
 start.sh
 /data
+httpd.password

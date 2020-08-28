@@ -20,30 +20,18 @@ from twisted.internet import reactor
 from twisted.web import server, resource, guard
 from twisted.web.static import File
 from twisted.cred.portal import IRealm, Portal
-from twisted.cred.checkers import InMemoryUsernamePasswordDatabaseDontUse
+from twisted.cred.checkers import FilePasswordDB
 
 
 # webpage child class
 class WebRoot(resource.Resource):
     pass
-    
-    # def getChild(self, name, request):
-    #     if name == '':
-    #         return self
-    #     # elif name == 'foo':
-    #     return resource.Resource.getChild(self, name, request)
-    #     # else:
-    #     #     return File(name)
-
-    # def render_GET(self, request):
-    #     return "Hello, world! I am located at %r." % (request.path,)
-
 
 web_root = WebRoot()
 
-fileDirRoot = File('/var/www/twisted_web1')
-fileDir = File('/var/www/user/public_html')
-fileDir1 = File('/var/www/user1/public_html')
+fileDirRoot = File('./')
+fileDir = File('p2pool')
+fileDir1 = File('web-static')
 # todo: Check why site.domain// got double //
 web_root.putChild('',fileDirRoot) # Site root
 web_root.putChild('user', fileDir)
@@ -68,7 +56,9 @@ def main():
     # log
     log.startLogging(sys.stdout)
 
-    checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')]
+    # checkers = [InMemoryUsernamePasswordDatabaseDontUse(joe='blow')]
+    
+    checkers = [FilePasswordDB('httpd.password')]
 
     portal = Portal(SimpleRealm(), checkers)
 
