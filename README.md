@@ -68,7 +68,7 @@ digibyte.conf
 		rpcthreads=96
 		rpcallowip=127.0.0.1
 		rpcport=14024
-		port=12026
+		port=12024
 		deprecatedrpc=accounts
 
 Running P2Pool:
@@ -79,6 +79,9 @@ To use P2Pool, you must be running your own local digibyted. For standard config
 		pypy run_p2pool.py --net digibyte
 		
 To make your node accessible from the internet, open the following ports on your router (both the worker port and peer-2-peer port please!): Worker Port = 5025; Peer-2-Peer Port = 5024
+
+To make Your Digibyte Core server accept incoming Peer-2-Peer connections, open the following ports on your router:
+Digibyte Core Peer-2-Peer Port = 12024
 
 Run for additional options:
 
