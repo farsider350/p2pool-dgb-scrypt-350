@@ -173,6 +173,14 @@ class WorkerBridge(worker_interface.WorkerBridge):
         assert len(contents) % 2 == 1
         
         user, contents2 = contents[0].strip(), contents[1:]
+        worker = ''
+
+        if '_' in user:
+            worker = user.split('_')[1]
+            user = user.split('_')[0]
+        elif '.' in user:
+            worker = user.split('.')[1]
+            user = user.split('.')[0]
         
         desired_pseudoshare_target = None
         desired_share_target = None
