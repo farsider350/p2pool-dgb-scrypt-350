@@ -89,5 +89,5 @@ Run for additional options:
 
 Donations towards further development:
 -------------------------
-BTC: 12nQSWig35Wue2AGjiGM5F2LUvSwq8uQqS
-DGB: DG21rdLGRR2sMZDA1pXCrR93dKwjSz8yHo
+BTC: bc1q5h3j9xr5hd53mt9n3wq3a26dwch7f7nv70ej08
+DOGE: DPV4B91YzAF361R2FS5uemfgtNV8nEseXW
