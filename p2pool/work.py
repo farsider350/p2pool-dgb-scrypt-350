@@ -169,18 +169,18 @@ class WorkerBridge(worker_interface.WorkerBridge):
         print " Next address rotation in : %fs" % (time.time()-c+self.args.timeaddresses)
  
     def get_user_details(self, username):
-        contents = re.split('([+/._])', username)
+        contents = re.split('([+/])', username)
         assert len(contents) % 2 == 1
         
         user, contents2 = contents[0].strip(), contents[1:]
         worker = ''
 
-        #if '_' in user:
-        #    worker = user.split('_')[1]
-        #    user = user.split('_')[0]
-        #elif '.' in user:
-        #    worker = user.split('.')[1]
-        #    user = user.split('.')[0]
+        if '_' in user:
+            worker = user.split('_')[1]
+            user = user.split('_')[0]
+        elif '.' in user:
+            worker = user.split('.')[1]
+            user = user.split('.')[0]
         
         desired_pseudoshare_target = None
         desired_share_target = None
@@ -194,12 +194,6 @@ class WorkerBridge(worker_interface.WorkerBridge):
             elif symbol == '/':
                 try:
                     desired_share_target = bitcoin_data.difficulty_to_target(float(parameter))
-                except:
-                    if p2pool.DEBUG:
-                        log.err()
-            elif symbol in '_.':
-                try:
-                    worker = parameter
                 except:
                     if p2pool.DEBUG:
                         log.err()
