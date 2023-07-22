@@ -120,16 +120,19 @@ class CachingWorkerBridge(object):
         self._cache = {}
         self._times = None
     
-    def get_work(self, *args):
+    def get_work(self, user, address, desired_share_target,
+                 desired_pseudoshare_target, worker_ip=None, *args):
         if self._times != self.new_work_event.times:
             self._cache = {}
             self._times = self.new_work_event.times
         
-        if args not in self._cache:
-            x, handler = self._inner.get_work(*args)
-            self._cache[args] = x, handler, 0
+        cachekey = (address, desired_share_target, args)
+        if cachekey not in self._cache:
+            x, handler = self._inner.get_work(user, address, desired_share_target,
+                desired_pseudoshare_target, worker_ip, *args)
+            self._cache[cachekey] = x, handler, 0
         
-        x, handler, nonce = self._cache.pop(args)
+        x, handler, nonce = self._cache.pop(cachekey)
         
         res = (
             dict(x, coinb1=x['coinb1'] + pack.IntType(self._my_bits).pack(nonce)),
@@ -137,6 +140,6 @@ class CachingWorkerBridge(object):
         )
         
         if nonce + 1 != 2**self._my_bits:
-            self._cache[args] = x, handler, nonce + 1
+            self._cache[cachekey] = x, handler, nonce + 1
         
         return res
