@@ -24,7 +24,10 @@ def check(bitcoind, net, args):
     
     try:
         blockchaininfo = yield bitcoind.rpc_getblockchaininfo()
-        softforks_supported = set(item['id'] for item in blockchaininfo.get('softforks', []))
+        try:
+            softforks_supported = set(item['id'] for item in blockchaininfo.get('softforks', []))
+        except TypeError:
+            softforks_supported = set(item for item in blockchaininfo.get('softforks', [])) # fix for https://github.com/jtoomim/p2pool/issues/38
         try:
             softforks_supported |= set(item['id'] for item in blockchaininfo.get('bip9_softforks', []))
         except TypeError: # https://github.com/bitcoin/bitcoin/pull/7863

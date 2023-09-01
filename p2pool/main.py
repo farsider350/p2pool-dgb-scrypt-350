@@ -139,8 +139,8 @@ def main(args, net, datadir_path, merged_urls, worker_endpoint):
             
             if address is None:
                 print '    Getting payout address from bitcoind...'
-                address = yield deferral.retry('Error getting payout address from bitcoind:', 5)(lambda: bitcoind.rpc_getaccountaddress('p2pool'))()
-            
+                address = yield deferral.retry('Error getting payout address from bitcoind:', 5)(lambda: bitcoind.rpc_getnewaddress('p2pool', 'legacy'))()
+           
             with open(address_path, 'wb') as f:
                 f.write(address)
             
