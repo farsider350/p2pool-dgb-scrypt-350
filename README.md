@@ -49,8 +49,9 @@ Copy and paste the following commands one paragraph at a time into a bash shell 
 		cd digibyte_subsidy
 		sudo pypy setup.py install
 		cd ..
-		cd litecoin_scrypt
-		sudo pypy setup.py install    
+		pip install 'scrypt>=0.8.0,<=0.8.22'
+		# Note: scrypt 0.8.23+ uses f-strings, breaks on Python 2.7/PyPy
+		# Fallback: cd litecoin_scrypt && pypy setup.py install
     
 	
 digibyte.conf
